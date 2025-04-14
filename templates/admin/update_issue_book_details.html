@@ -1,0 +1,73 @@
+{% extends 'dashbord.html' %} 
+{% load static %} 
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'dashbord.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'side-Menu.css' %}" />
+<link rel="stylesheet" href="{% static 'books.css' %}" />
+{% endblock %}
+
+{% block title %}
+    <title>Update Book</title>
+{% endblock %}
+
+{% block main%}
+<div class="main" style="padding-left: 30px">
+
+  <div class="d-flex justify-content">
+    <!-- Book Details -->
+    <div class="card1 " style="width: 300px;">
+      <h3 class="font-weight-bold">Books Details</h3>
+      <div class="grid-margin stretch-card text-center">
+        <p><strong>Book Image</strong></p>
+        <img src="{% static '/book_img' %}{{iss_books.book_id.bookimage.url}}" height="100" width="100" alt="Book Cover" />
+        <h2>{{iss_books.book_id.bookname}}</h2>
+        <p><strong>Author:</strong> {{iss_books.book_id.auther}}</p>
+        <p><strong>ISBN:</strong> {{iss_books.book_id.isbnnum}}</p>
+        <!-- <p><strong>Category:</strong> {{iss_books.book_id.catid.catname}}</p> -->
+        <p><strong>Issue Date:</strong> {{iss_books.issued_date}}</p>
+        <p><strong>Expire Date:</strong> {{iss_books.book_id.expire_at}}</p>
+        <p>
+          <strong>Return Date:</strong>
+          {% if iss_books.return_status == '' %} Not Return Yet {% else %}
+          {{ iss_books.return_date }}
+          {% endif %}
+        </p>
+        {% if total_fine > 0 %}
+        <strong style="color: red;">Student Have Pay ₹ {{total_fine}} For {{total_days}} Days</strong>
+        {% else %}
+        <strong style="color: red;">₹ {{total_fine}} Fine </strong>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Student Details -->
+    <div class="card1" style="width: 300px; height: 220px;">
+      <h3 class="font-weight-bold">Student Details</h3>
+      <hr />
+      <div class="grid-margin stretch-card ">
+        <p><strong>Student ID:</strong> {{iss_books.stud_id.studentid}}</p>
+        <p><strong>Student Name:</strong> {{iss_books.stud_id.admin.first_name}}</p>
+        <p><strong>Student Email:</strong> {{iss_books.stud_id.email}}</p>
+      </div>
+    </div>    
+  </div>
+
+  <!-- Form -->
+  <form method="POST" action="{% url 'update_ibstatus_detail' %}">
+    {% csrf_token %}
+    <div class="form-row align-items-center">
+      <input type="hidden" name="bookid" value="{{iss_books.book_id.id}}" />
+      <input type="hidden" name="issbk_id" value="{{iss_books.id}}" />
+      <h5><strong>Fine:</strong></h5>
+      <div class="col-auto">
+        <input type="text" class="form-control mb-2" placeholder="Amount" name="fine" value="{{total_fine}}" required />
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-2">Return Book</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

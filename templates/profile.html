@@ -1,0 +1,62 @@
+{% extends 'dashbord.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}">
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+{% endblock %}
+
+{% block title %}
+    <title>Profile</title>
+{% endblock %}
+
+{% block main%}
+
+<div class="main">
+  <div class="">
+    {% if messages %}
+       {% for message in messages %}
+                 <div class="alert alert-{{message.tags}} alert-dismissible fade show m-3" role="alert">
+                  {{ message }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div>
+        {% endfor %}
+        {% endif %}
+  </div>
+    <!-- Main -->
+     <br>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputName1">Old Profile Pic</label>
+                    <img src="{% static '/book_img/' %}{{user.profile_pic}}" height="170" width="150">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Profile Pic</label>
+                    <input type="file" class="form-control" name="profile_pic">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword4">Full Name</label>
+                    <input type="text" class="form-control" name="first_name" value="{{user.first_name}}">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="exampleInputCity1">Email</label>
+                    <input type="email" class="form-control" name="email" value="{{user.email}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Username</label>
+                    <input type="text" class="form-control" readonly="True" name="username" value="{{user.username}}">
+                  </div>
+                
+                  <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

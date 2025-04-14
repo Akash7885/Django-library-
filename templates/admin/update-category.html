@@ -1,0 +1,51 @@
+{% extends 'dashbord.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'side-Menu.css' %}" />
+{% endblock %}
+
+{% block title %}
+    <title>Update categories</title>
+{% endblock %}
+
+{% block main%}
+<div class="main">
+    <div class="">
+      {% if messages %}
+      {% for message in messages %}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show m-3" role="alert">
+                 {{ message }}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+                 </div>
+       {% endfor %}
+       {% endif %}
+    </div>
+
+    <form method="POST" action="{% url 'update_category_details' %}">
+        {% csrf_token %}
+        <fieldset>
+          <h3 class="">Add Category</h3>
+          <div class="mb-4 m-3">
+            <label for="textInput" class="form-label">Category Name</label>
+            <input type="text" id="textInput" name="catname" class="form-control" required value="{{cat.catname}}">            
+            <input type="hidden" name="cat_id" class="form-control" id="cat_id" required="true" value="{{cat.id}}">
+          </div>
+          <div class="mb-3 m-3">
+            <label for="selectMenu" class="form-label">Status</label>
+            <select id="selectMenu" class="form-select" name="status">
+                <option value="{{cat.status}}">{{cat.status}}</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary m-3">Update</button>
+        </fieldset>
+      </form>
+</div>
+
+{% endblock %}
+

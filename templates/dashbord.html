@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'dashbord.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'navbar.css' %}">
+    {% endblock %}
+
+{% block title %}
+    <title>Dashbord</title>
+{% endblock %}
+</head>
+
+<body>
+
+    <!-- The sidebar -->
+    {% block sidebar %}
+    {% include 'side-Menu.html' %}
+
+    {% endblock %}
+
+    {% block main %}
+    <div class="main ">
+        {% if user.is_superuser %}
+        <h3 class="font-weight-bold p-3">Welcome {{user.username}} !!</h3>
+
+        <div class="wrapper">
+            <div class="container">
+                <div class="card">
+                    <h3>Total Category</h3>
+                    <div class="number">{{cat_count}}</div>
+                    <a href="{% url 'show_category' %}">View Details</a>
+                </div>
+                <div class="card">
+                    <h3>Total Book</h3>
+                    <div class="number">{{book_count}}</div>
+                    <a href="{% url 'manage_book' %}">View Details</a>
+                </div>
+                <div class="card">
+                    <h3>Total Students</h3>
+                    <div class="number">{{regusers_count}}</div>
+                    <a href="{% url 'reg_users' %}">View Details</a>
+                </div>
+                <div class="card">
+                    <h3>Total Issued Books</h3>
+                    <div class="number">{{issbook_count}}</div>
+                    <a href="{% url 'show_issued_book' %}">View Details</a>
+                </div>
+                <div class="card">
+                    <h3>Panding Return</h3>
+                    <div class="number">{{issbook_count}}</div>
+                    
+                </div>
+                <div class="card">
+                    <h3>Total Return Book</h3>
+                    <div class="number">{{retbook_count}}</div>
+                    
+                </div>
+                
+            </div>
+        </div>
+
+        {% else%}
+        <h3 class="font-weight-bold p-2">Welcome {{user.first_name}} !!</h3>
+
+        <div class="wrapper">
+            <div class="container1">
+                <div class="card std">
+                    <h3>Total Books</h3>
+                    <div class="number">{{book_count}}</div>
+                    <a href="{% url 'book_details' %}">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endif%}
+    </div>
+    {% endblock %}
+
+    <script src="{% static 'dashbord.js'%}"></script> 
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+{% extends 'dashbord.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}">
+<link rel="stylesheet" href="add-category.css">
+{% endblock %}
+
+{% block title %}
+    <title>Add Books</title>
+{% endblock %}
+
+{% block main%}
+<div class="main">
+    <div class="">
+      {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}} alert-dismissible fade show m-3" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        {% endfor %}
+       {% endif %}
+    </div>
+
+    <form method="POST"  action="{% url 'add_books' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+          <h3 class="">Add Books</h3>
+          
+          <div class="mb-4 m-3">
+            <label for="textInput" class="form-label">Book Name</label>
+            <input type="text" id="textInput" name="bookname" class="form-control" maxlength="35 " required placeholder="Enter Category Name">
+          </div>
+          
+          <div class="mb-3 m-3">
+            <label for="selectMenu" class="form-label">Category</label>
+                    <select id="selectMenu" class="form-select" name="catid" required>
+                <option value="">Select Category</option>
+                {% for category in categories %}
+                  {% if category.status == "Active" %}
+                    <option value="{{ category.id }}">{{ category.catname }}</option>
+                  {% endif %} 
+                {% endfor %}
+            </select>
+          </div>
+          
+          <div class="mb-4 m-3">
+            <label for="textInput" class="form-label">Author</label>
+            <input type="text" id="textInput" name="auther" class="form-control" maxlength="20" required placeholder="Enter Author Name">
+          </div>
+          
+          <div class="mb-4 m-3">    
+            <label for="textInput" class="form-label">ISBN Number</label>
+            <input type="text" maxlength="8" id="textInput" name="isbnnum" class="form-control" required placeholder="Enter ISBN Number">
+          </div>
+          
+          <div class="mb-4 m-3">
+            <label for="textInput" class="form-label">Price</label>
+            <input type="text" id="textInput" name="price" class="form-control" maxlength="4" placeholder="Enter Price">
+          </div>
+
+          <div class="mb-3 m-3">
+            <label for="formFile" class="form-label">Book Picture</label>
+            <input class="form-control" type="file" accept=".jpg, .png, .jpeg" required name="bookimage" id="formFile">
+          </div>
+          
+          <button type="submit" class="btn btn-primary m-3">Submit</button>
+        </fieldset>
+      </form>
+</div>
+{% endblock %}

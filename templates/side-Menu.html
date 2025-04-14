@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="static\side-Menu.css">
+
+</head>
+
+<body>
+  {% if user.is_superuser %}
+  <div class="side-menu">
+    <a href="{% url 'Dashboard'%}"><i class="bi-grid-fill"></i> Dashbord</a>
+    <a href="{% url 'profile' %}"><i class="bi-person-lines-fill"></i> My Account</a>
+
+    <!-- Submenu 1 -->
+    <input type="checkbox" id="submenu1">
+    <label id="lbl" for="submenu1"><i class="bi-list-task"></i> Category</label>
+    <div class="submenu">
+      <a href="{% url 'add_category' %}"><i class="bi-plus-circle-dotted"></i> Add</a>
+      <a href="{% url 'show_category' %}"><i class="bi-tv"></i> Show</a>
+    </div>
+
+    <!-- Submenu 2 -->
+    <input type="checkbox" id="submenu2">
+    <label id="lbl" for="submenu2"><i class="bi-book"></i> Books </label>
+    <div class="submenu">
+      <a href="{% url 'add_books' %}"><i class="bi-plus-circle-dotted"></i> Add</a>
+      <a href="{% url 'manage_book' %}"><i class="bi-tv"></i> Manage</a>
+    </div>
+
+    <input type="checkbox" id="submenu3">
+    <label id="lbl" for="submenu3"><i class="bi-book-half"></i> Issse Book</label>
+    <div class="submenu">
+      <a href="{% url 'issue_book' %}"><i class="bi-plus-circle-dotted"></i> Issue</a>
+      <a href="{% url 'show_issued_book' %}"><i class="bi-tv"></i> Issued Book</a>
+    </div>
+    <a href="{% url 'search_book' %}"><i class="bi-search"></i> Search Book</a>
+    <a href="{% url 'reg_users' %}"> <i class="bi-people-fill"></i> All Students</a>
+    <a href="{% url 'change_password' %}"> <i class="bi-bootstrap-reboot"></i> Reset Password</a>
+    <a href="{% url 'doLogout' %}"> <i class="bi-box-arrow-right"></i> Logut</a>
+  </div>
+  {% else %}
+  <div class="side-menu">
+    <a href="{% url 'Dashboard'%}"><i class="bi-grid-fill"></i> Dashbord</a>
+    <a href="{% url 'book_details' %}"><i class="bi-card-heading"></i> Book Details </a>
+    <a href="{% url 'stud_issed_books' %}"><i class="bi-book-half"></i> Issued Book</a>
+    <a href="{% url 'search_book' %}"><i class="bi-search"></i> Search Book</a>
+    <a href="{% url 'profile' %}"><i class="bi-person-lines-fill"></i> My Account</a>
+    <a href="{% url 'change_password' %}"> <i class="bi-bootstrap-reboot"></i> Reset Password</a>
+    <a href="{% url 'doLogout' %}"> <i class="bi-box-arrow-right"></i> Logut</a>
+  </div>
+
+  {% endif %}
+</body>
+
+</html>

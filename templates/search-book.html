@@ -1,0 +1,62 @@
+{% extends 'dashbord.html' %} 
+{% load static %} 
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}" />
+<link rel="stylesheet" href="{% static 'books.css' %}" />
+{% endblock %} 
+
+{% block title %}
+    <title>Search Books</title>
+{% endblock %} 
+
+{% block main %}
+<div class="main">
+  
+        {% if messages %}
+           {% for message in messages %}
+                     <div class="alert alert-{{message.tags}} alert-dismissible fade show m-3" role="alert">
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      </div>
+            {% endfor %}
+        {% endif %}
+
+    <form method="POST" action="search_book">
+        {% csrf_token %}
+        <div class="input-group mb-5" style="padding: 10px">
+            <input type="text" class="form-control m-1" placeholder="Enter Book Name" required name="query"
+                aria-label="Recipient's username" />
+            <div class="input-group-append">
+                <button class="btn btn-primary m-1" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+
+    {% if search_b %}
+        <div class="row">
+            {% for i in search_b %}
+            <div class="grid-margin stretch-card card1 text-center" style="width: 250px;">
+                <img src="{% static '/book_img' %}{{ i.bookimage.url }}" height="100" width="100" alt="Book Cover" />
+                <h2>{{ i.bookname }}</h2>
+                <p><strong>Author:</strong> {{ i.auther }}</p>
+                <p><strong>ISBN:</strong> {{ i.isbnnum }}</p>
+                <p><strong>Category:</strong> {{ i.catid.catname }}</p>
+                {% if i.isIssued == 'True' %}
+                <strong style="color: red">Book Already Issued</strong>
+                <p><strong>Available At:</strong> {{ i.expire_at }}</p>
+                <!-- {% if user.is_superuser %}
+                    <p><strong>Student Name:</strong> {{Issuedbookdetails.stud_id.admin.first_name}}</p>
+                    <p><strong>Student Email:</strong> {{i.stud_id.email}}</p>
+                {% endif %} -->
+                {% endif %}
+                
+            </div>
+            {% endfor %}
+        </div>
+      {% endif %}
+</div>
+
+{% endblock %}

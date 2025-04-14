@@ -1,0 +1,76 @@
+{% extends 'dashbord.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Show Categories</title>
+{% endblock %}
+
+{% block main%}
+<div class="main">
+
+  <div class="">
+    {% if messages %}
+    {% for message in messages %}
+              <div class="alert alert-{{message.tags}} alert-dismissible fade show m-3" role="alert">
+               {{ message }}
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+               </div>
+     {% endfor %}
+     {% endif %}
+  </div>
+
+
+  <h3 class="">All Categories</h3>
+  <table class="table p-4 ">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Category Name</th>
+        <th scope="col">Creation Date </th>
+        <th scope="col">Update Date </th>
+        <th scope="col">Status </th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in categories %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{i.catname}}</td>
+        <td>{{i.created_at}}</td>
+        <td>{{i.updated_at}}</td>
+        <td>{{i.status}}</td>
+        <td><a href="{% url 'update_category' i.id %}" class="btn btn-success btn-sm">
+          EDIT</a> <a href="{% url 'delete_category' i.id %}" class="btn btn-danger btn-sm">
+              DELETE</a></td>
+      </tr>{% endfor %}
+      
+    </tbody>
+  </table>
+
+
+  <div class="pagination" style="padding-top: 10px;text-align: center; font-size: 20px; padding-left: 8px;">
+    <span class="step-links">
+        {% if categories.has_previous %}
+            <a href="?page={{ categories.previous_page_number }}"><i class="bi-arrow-left-circle-fill"></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ categories.number }} of {{ categories.paginator.num_pages }}.
+        </span>
+
+        {% if categories.has_next %}
+            <a href="?page={{ categories.next_page_number }}"><i  class="bi-arrow-right-circle-fill"></i></a>
+        {% endif %}
+    </span>
+</div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'dashbord.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}">
+{% endblock %}
+
+{% block main%}
+<div class="main">
+  <h3 class="">All Register Student</h3>
+  <table class="table p-4 ">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Student ID</th>
+        <th scope="col">Student Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Register Date </th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in student_list %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{i.studentid}}</td>
+        <td>{{i.admin.first_name}}</td>
+        <td>{{i.admin.email}}</td>
+        <td>{{i.regdate_at}}</td>
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+
+  <div class="pagination" style="padding-top: 10px;text-align: center;font-size: 20px; padding-left: 8px;">
+    <span class="step-links">
+        {% if student_list.has_previous %}
+            <a href="?page={{ student_list.previous_page_number }}"><i class="bi-arrow-left-circle-fill"></i></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ student_list.number }} of {{ student_list.paginator.num_pages }}.
+        </span>
+
+        {% if student_list.has_next %}
+            <a href="?page={{ student_list.next_page_number }}"><i class="bi-arrow-right-circle-fill"></i></a>
+        {% endif %}
+    </span>
+</div>
+</div>
+{% endblock %}

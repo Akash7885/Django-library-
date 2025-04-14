@@ -1,0 +1,59 @@
+{% extends 'dashbord.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Issued Books</title>
+{% endblock %}
+
+{% block main%}
+<div class="main">
+  <h3 class=""> Issued Books</h3>
+  <table class="table p-4 ">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Book Name</th>
+        <th scope="col">ISBN</th>
+        <th scope="col">Issue Date</th>
+        <th scope="col">Fine(if any) </th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in issued_books %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{i.book_id.bookname }}</td>
+              <td>{{i.book_id.isbnnum}}</td>
+              <td>{{i.issued_date}}</td>
+              {% if i.return_status == '' %}
+              <td>Not Return Yet</td>
+              {% else %}
+              <td>{{ i.fine }}</td>
+              {% endif %}
+            </tr>
+        {% endfor %}     
+    </tbody>
+  </table>
+
+  <div class="pagination" style="padding-top: 10px;text-align: center;font-size: 20px; padding-left: 8px;">
+    <span class="step-links">
+        {% if issued_books.has_previous %}
+            <a href="?page={{ issued_books.previous_page_number }}"><i class="bi-arrow-left-circle-fill"></i></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ issued_books.number }} of {{ issued_books.paginator.num_pages }}.
+        </span>
+
+        {% if issued_books.has_next %}
+            <a href="?page={{ issued_books.next_page_number }}"><i class="bi-arrow-right-circle-fill"></i></a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+{% endblock %}

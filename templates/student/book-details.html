@@ -1,0 +1,58 @@
+{% extends 'dashbord.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}">
+<link rel="stylesheet" href="{% static 'books.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Books</title>
+{% endblock %}
+
+{% block main %}
+<div class="main">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="font-weight-bold">Library Books </h3>
+            
+            <!-- Category Filter Dropdown -->
+            <form method="GET" action="" class="" style="padding-left: 25px;">
+                <!-- <label for="category" class="m-1" ><strong>Filter by Category:</strong></label> -->
+                <select name="category" id="category" class="form-control m-1" style="width: 300px;" onchange="this.form.submit()">
+                    <option value="">All Categories   </option>
+                    {% for category in categories %}
+                        {% if category.status == "Active" %}
+                        <option value="{{ category.id }}" 
+                        {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                            {{ category.catname }}
+                        </option>
+                        {% endif %}  
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        {% if books %}
+                {% for i in books %}
+                {% if i.catid.status == "Active" %}
+                    <div class="grid-margin stretch-card card1 text-center">
+                        <img src="{% static '/book_img' %}{{ i.bookimage.url }}" height="100" width="100" alt="Book Cover">
+                        <h2>{{ i.bookname }}</h2>
+                        <p><strong>Author:</strong> {{ i.auther }}</p>
+                        <p><strong>ISBN:</strong> {{ i.isbnnum }}</p>
+                        <p><strong>Category:</strong> {{ i.catid.catname }}</p>
+                            {% if i.isIssued == 'True' %}
+                            <strong style="color: red;">Book Already Issued</strong>
+                            <p><strong>Available At:</strong> {{ i.expire_at }}</p>
+                            {% endif %}
+                    </div>   
+                    {% endif %}  
+                {% endfor %}
+        {% else %}
+            <br><hr>
+            <h1 style="color: red; padding-left: 50px;">No Books Available</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

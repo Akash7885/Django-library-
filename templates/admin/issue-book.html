@@ -1,0 +1,63 @@
+{% extends 'dashbord.html' %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'dashbord.css' %}">
+{% endblock %}
+
+{% block title %}
+    <title>Issue Book</title>
+{% endblock %}
+
+{% block main%}
+<div class="main">
+    <div class="">
+      {% if messages %}
+         {% for message in messages %}
+                   <div class="alert alert-{{message.tags}} alert-dismissible fade show m-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+          {% endfor %}
+          {% endif %}
+    </div>
+
+    <form method="POST"  action="{% url 'issue_book' %}">
+        {% csrf_token %}
+        <fieldset>
+          <h3 class="">Issue Books</h3>
+          <div class="mb-3 m-3">
+            <label for="selectMenu" class="form-label">Student </label>
+                    <select id="selectMenu" class="form-select" name="stuid" required>
+                <option value="">Select Student</option>
+                {% for i in students %}
+                    <option value="{{ i.id }}">{{i.admin.first_name}} {{i.admin.last_name}}({{i.studentid}})</option>
+                {% endfor %}
+            </select>
+          </div>
+          
+          <div class="mb-3 m-3">
+            <label for="selectMenu" class="form-label">Books</label>
+                    <select id="selectMenu" class="form-select" name="bookid" required>
+                <option value="">Select Book</option>
+                {% for i in books %}
+                  {% if i.catid.status == "Active" %}
+                    <option value="{{ i.id }}">{{i.bookname}} ({{i.isbnnum}})</option>
+                  {% endif %} 
+                {% endfor %}
+            </select>
+          </div>                                    
+          <button type="submit" class="btn btn-primary m-3">Submit</button>
+        </fieldset>
+      </form>
+</div>
+
+{% endblock %}
+
+<script>
+  setTimeout(function () {
+    $('.alert').fadeOut('slow');
+}, 3000); 
+</script>
