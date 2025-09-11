@@ -28,5 +28,5 @@ This is a Django-based web application for managing a library system, including 
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/django-library.git
-cd django-library
+git clone https://github.com/Akash7885/Django-ibrary.git
+cd Django-library
