@@ -1,0 +1,124 @@
+
+
+  
+/* Style the sidebar - fixed full height 
+.sidebar {
+    height: 100%;
+    width: 170px;
+    position:  absolute;
+    z-index: 1;
+    top: 10;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+    padding-top: 50px;
+  }
+
+  .sidebar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+  }
+  
+  .sidebar a:hover {
+    color: #000000;
+  }
+  
+  .sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width:100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .dropdown-container {
+    display: none;
+    background-color: rgb(189, 194, 194);
+    padding-left: 8px;
+  }
+  .fa-caret-down {
+    float: right;
+    padding-right: 5px;
+  }
+
+  */
+  
+  /* Style the main content */
+  .main {
+    margin-left: 170px; /* Same as the width of the sidenav */
+    /* padding: 0px 10px 20px 0px; */
+    overflow-x: hidden;
+ 
+  }
+  
+  /* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+  
+  /* cards */
+  .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .container {
+            padding-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 80%;
+            text-align: center;
+            /* max-width: 800px; */
+        }
+        .container1 {
+            padding-top: 50px;
+            display: grid;
+            width: 90%;
+            text-align: center;
+        }
+        .card {
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .card:nth-child(1) { background-color: #7da2ff; }
+        .card:nth-child(2) { background-color: #ffcc66; }
+        .card:nth-child(3) { background-color: #ff6666; }
+        .card:nth-child(4) { background-color: #6666ff; }
+        .card:nth-child(5) { background-color: #99cc66; }
+        .card:nth-child(6) { background-color: #66ccff; }
+        .card h3 {
+            margin: 0;
+            font-size: 14px;
+        }
+        .card .number {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .card a {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+     
+.main h3{
+  margin-left: 30px;
+  padding-top: 10px;
+}
+
